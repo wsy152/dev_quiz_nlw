@@ -12,6 +12,10 @@ export '../home/widgets/chart/chat_widget.dart';
 export '../challenge/challege_page.dart';
 export '../shared/widgets/progress_indicator_widget.dart';
 export '../home/widgets/quiz_card/quiz_card_widget.dart';
+export 'package:DevQuiz/shared/models/quiz_models.dart';
+export 'package:DevQuiz/shared/models/user.model.dart';
+export 'package:DevQuiz/home/home_state.dart';
+export 'package:DevQuiz/home/homeController.dart';
 
 
 
