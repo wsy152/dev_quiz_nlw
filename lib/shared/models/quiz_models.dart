@@ -21,4 +21,25 @@ class QuizModel {
     required this.imagem,
     required this.level,
   });
+
+  factory QuizModel.fromMap(Map<String, dynamic> map) {
+    return new QuizModel(
+      title: map['title'] as String,
+      questions: map['questions'] as List<QuestionModel>,
+      questionAnswered: map['questionAnswered'] as int,
+      imagem: map['imagem'] as String,
+      level: map['level'] as Level,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    // ignore: unnecessary_cast
+    return {
+      'title': this.title,
+      'questions': this.questions,
+      'questionAnswered': this.questionAnswered,
+      'imagem': this.imagem,
+      'level': this.level,
+    } as Map<String, dynamic>;
+  }
 }
