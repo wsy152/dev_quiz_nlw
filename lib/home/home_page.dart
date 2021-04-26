@@ -11,8 +11,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-      controller.getUser();
-      controller.getQuizzes();
+    controller.getUser();
+    controller.getQuizzes();
       controller.stateNotifier.addListener(() {
         setState(() {
 
@@ -24,9 +24,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if(controller.state == HomeState.success) {
       return Scaffold(
-        appBar: AppBarWidget(
-          user: controller.user!,
-        ),
+        // appBar: AppBarWidget(
+        //   user: controller.user!,
+        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -59,6 +59,10 @@ class _HomePageState extends State<HomePage> {
                   children: controller.quizzes!
                       .map((e) =>
                       QuizCardWidget(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => ChallengePage()));
+                        },
                         title: e.title,
                         percent: e.questionAnswered / e.questions.length,
                         completed:

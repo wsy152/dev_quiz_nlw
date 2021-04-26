@@ -16,6 +16,8 @@ export 'package:DevQuiz/shared/models/quiz_models.dart';
 export 'package:DevQuiz/shared/models/user.model.dart';
 export 'package:DevQuiz/home/home_state.dart';
 export 'package:DevQuiz/home/homeController.dart';
+export 'package:DevQuiz/shared/models/question_model.dart';
+export 'dart:convert';
 
 
 

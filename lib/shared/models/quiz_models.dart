@@ -1,10 +1,28 @@
-import 'package:DevQuiz/shared/models/question_model.dart';
+import 'package:DevQuiz/core/core.dart';
 
 enum Level {
-  ficil,
+  facil,
   medio,
   dificil,
   perito,
+}
+
+extension LevelStringExt on String {
+  Level get levelParse => {
+        "facil": Level.facil,
+        "medio": Level.medio,
+        "dificil": Level.dificil,
+        "perito": Level.perito,
+      }[this]!;
+}
+
+extension LevelExt on Level {
+  String get parse => {
+        Level.facil: "facil",
+        Level.medio: "medio",
+        Level.dificil: "dificil",
+        Level.perito: "perito",
+      }[this]!;
 }
 
 class QuizModel {
@@ -22,24 +40,28 @@ class QuizModel {
     required this.level,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'questions': questions.map((x) => x.toMap()).toList(),
+      'questionAnswered': questionAnswered,
+      'imagem': imagem,
+      'level': level.parse,
+    };
+  }
+
   factory QuizModel.fromMap(Map<String, dynamic> map) {
-    return new QuizModel(
-      title: map['title'] as String,
-      questions: map['questions'] as List<QuestionModel>,
-      questionAnswered: map['questionAnswered'] as int,
-      imagem: map['imagem'] as String,
-      level: map['level'] as Level,
+    return QuizModel(
+      title: map['title'],
+      questions: List<QuestionModel>.from(
+          map['questions']?.map((x) => QuestionModel.fromMap(x))),
+      questionAnswered: map['questionAnswered'],
+      imagem: map['imagem'],
+      level: map['level'].toString().levelParse,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
-      'title': this.title,
-      'questions': this.questions,
-      'questionAnswered': this.questionAnswered,
-      'imagem': this.imagem,
-      'level': this.level,
-    } as Map<String, dynamic>;
-  }
+  String toJson() => json.encode(toMap());
+
+  factory QuizModel.fromJson(String source) => QuizModel.fromMap(json.decode(source));
 }
