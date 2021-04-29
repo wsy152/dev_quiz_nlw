@@ -1,6 +1,10 @@
 import 'package:DevQuiz/core/core.dart';
 
 class QuestionIndicatorWidget extends StatelessWidget {
+  final int currentPage;
+  final int lenght;
+
+  const QuestionIndicatorWidget({Key? key, required this.currentPage,required this.lenght}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,13 +15,13 @@ class QuestionIndicatorWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Questão 04',style: AppTextStyles.body,),
-                Text('de 10',style: AppTextStyles.body,),
+                Text('Questão $currentPage',style: AppTextStyles.body,),
+                Text('de $lenght',style: AppTextStyles.body,),
 
               ],
             ),
             SizedBox(height: 16,),
-            ProgressIndicatorWidget(value: 0.3,)
+            ProgressIndicatorWidget(value: currentPage / lenght,)
 
           ],
         ),

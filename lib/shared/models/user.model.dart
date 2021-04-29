@@ -20,16 +20,15 @@ class UserModel {
     };
   }
 
-  factory UserModel.formMap(Map<String, dynamic> map){
+  factory UserModel.fromMap(Map<String, dynamic> map){
     return UserModel(
       name: map['name'],
       photoUrl: map['photoUrl'],
-      score: map['score'],
+      score: map['score']?? 0,
     );
   }
 
   String toJson() => json.encode(toMap());
   factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
 
-  static fromMap(decode) {}
 }

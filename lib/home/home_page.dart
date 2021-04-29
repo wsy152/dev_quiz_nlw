@@ -24,9 +24,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if(controller.state == HomeState.success) {
       return Scaffold(
-        // appBar: AppBarWidget(
-        //   user: controller.user!,
-        // ),
+        appBar: AppBarWidget(
+          user: controller.user!,
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                       QuizCardWidget(
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => ChallengePage()));
+                              builder: (context) => ChallengePage(questions: e.questions,)));
                         },
                         title: e.title,
                         percent: e.questionAnswered / e.questions.length,

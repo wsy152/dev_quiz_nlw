@@ -15,13 +15,13 @@ class HomeController {
 
   void getUser() async {
     state = HomeState.loading;
-    await repository.getUser();
+    user = await repository.getUser();
     state = HomeState.success;
   }
 
   void getQuizzes() async {
     state = HomeState.loading;
-    await repository.getQuizzes();
+    quizzes = await repository.getQuizzes();
     state = HomeState.success;
   }
 }

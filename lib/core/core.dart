@@ -18,10 +18,7 @@ export 'package:DevQuiz/home/home_state.dart';
 export 'package:DevQuiz/home/homeController.dart';
 export 'package:DevQuiz/shared/models/question_model.dart';
 export 'dart:convert';
-
-
-
-
-
-
-
+export 'package:DevQuiz/challenge/challenge_controller.dart';
+export 'package:DevQuiz/challenge/widget/next_button/next_button_widget.dart';
+export 'package:DevQuiz/challenge/widget/question_indicator/question_indicator_widget.dart';
+export 'package:DevQuiz/challenge/widget/quiz/quiz_widget.dart';
