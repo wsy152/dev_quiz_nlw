@@ -4,7 +4,8 @@ import 'package:DevQuiz/shared/models/awnser_model.dart';
 
 class QuizWidget extends StatefulWidget {
   final QuestionModel question;
-  const QuizWidget({Key? key, required this.question}) : super(key: key);
+  final VoidCallback onChange;
+  const QuizWidget({Key? key, required this.question,required this.onChange}) : super(key: key);
 
   @override
   _QuizWidgetState createState() => _QuizWidgetState();
@@ -14,6 +15,7 @@ class _QuizWidgetState extends State<QuizWidget> {
   int indexSelected = -1;
 
   AwnserModel awnsers(int index) => widget.question.awnsers[index];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,18 +31,17 @@ class _QuizWidgetState extends State<QuizWidget> {
           height: 24,
         ),
         for (var i = 0; i < widget.question.awnsers.length; i++)
-          ...widget.question.awnsers
-              .map(
-                (e) => AwnserWidget(
-                  awnser: awnsers(i),
-                  isSelected: indexSelected == i,
-                  onTap: () {
-                    indexSelected = i;
-                    setState(() {});
-                  },
-                ),
-              )
-              .toList(),
+          AwnserWidget(
+            awnser: awnsers(i),
+            disabled: indexSelected != -1,
+            isSelected: indexSelected == i,
+            onTap: () {
+              indexSelected = i;
+              Future.delayed(Duration(seconds: 2)).then((value) => widget.onChange());
+              setState(() {});
+
+            },
+          ),
       ],
     );
   }
