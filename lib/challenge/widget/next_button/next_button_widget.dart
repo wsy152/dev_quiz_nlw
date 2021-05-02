@@ -16,10 +16,30 @@ class NextButtonWidget extends StatelessWidget {
     required this.onTap,
   });
 
-  NextButtonWidget.green({required String label, required VoidCallback onTap})
-      : this.backgroundColor = AppColors.darkGreen,
+  NextButtonWidget.green({
+    required String label,
+    required VoidCallback onTap,
+  })   : this.backgroundColor = AppColors.darkGreen,
         this.borderColor = AppColors.green,
         this.fontColor = AppColors.white,
+        this.onTap = onTap,
+        this.label = label;
+
+  NextButtonWidget.purple({
+    required String label,
+    required VoidCallback onTap,
+  })   : this.backgroundColor = AppColors.purple,
+        this.borderColor = AppColors.white,
+        this.fontColor = AppColors.green,
+        this.onTap = onTap,
+        this.label = label;
+
+  NextButtonWidget.transparent({
+    required String label,
+    required VoidCallback onTap,
+  })   : this.backgroundColor = Colors.transparent,
+        this.borderColor = Colors.transparent,
+        this.fontColor = AppColors.black,
         this.onTap = onTap,
         this.label = label;
 

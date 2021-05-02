@@ -1,9 +1,12 @@
 import 'package:DevQuiz/core/core.dart';
+import 'package:DevQuiz/result/result_page.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
+  final String title;
 
-  ChallengePage({Key? key, required this.questions}) : super(key: key);
+  ChallengePage({Key? key, required this.questions, required this.title})
+      : super(key: key);
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -21,12 +24,19 @@ class _ChallengePageState extends State<ChallengePage> {
     super.initState();
   }
 
-  void nextPage() {
+  void nextPage(bool value) {
     pageController.nextPage(
         duration: Duration(
           microseconds: 900,
         ),
         curve: Curves.linear);
+  }
+
+  void onSelected(bool value) {
+    if (value) {
+      controller.qtdAnwserRight++;
+    }
+    nextPage(value);
   }
 
   @override
@@ -59,42 +69,46 @@ class _ChallengePageState extends State<ChallengePage> {
         controller: pageController,
         children: widget.questions
             .map((e) => QuizWidget(
-          onChange: nextPage,
+                  onSelected: onSelected,
                   question: e,
                 ))
             .toList(),
       ),
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: ValueListenableBuilder<int>(
-              valueListenable: controller.currentPageNotifier,
-              builder: (context,value,_) =>  Row(
-                children: [
-                  if(value < widget.questions.length)
-                  Expanded(
-                    child: NextButtonWidget.white(
-                        label: 'Pular',
-                        onTap: () {
-                          nextPage();
-                        }),
-                  ),
-
-                  if(value == widget.questions.length)
-                  Expanded(
-                    child: NextButtonWidget.green(
-                      label: 'Confirmar',
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-
-                ],
-              ))
-        ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: ValueListenableBuilder<int>(
+                valueListenable: controller.currentPageNotifier,
+                builder: (context, value, _) => Row(
+                      children: [
+                        if (value < widget.questions.length)
+                          Expanded(
+                            child: NextButtonWidget.white(
+                                label: 'Pular',
+                                onTap: () {
+                                  onSelected;
+                                }),
+                          ),
+                        if (value == widget.questions.length)
+                          Expanded(
+                            child: NextButtonWidget.green(
+                              label: 'Confirmar',
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ResultPage(
+                                              result: controller.qtdAnwserRight,
+                                              title: widget.title,
+                                              lenght: widget.questions.length,
+                                            )));
+                              },
+                            ),
+                          ),
+                      ],
+                    ))),
       ),
     );
   }
